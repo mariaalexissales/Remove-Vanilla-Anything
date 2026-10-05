@@ -1,0 +1,75 @@
+version=1
+id=3799346338
+title=Remove Vanilla Anything
+description=[h1]Remove Vanilla Anything[/h1]
+description=[b]Strip vanilla content out of the loot tables and vehicle spawns, category by category, straight from the sandbox settings.[/b]
+description=
+description=Built for Build 42. Sixty-six toggles across eight sandbox pages: a master switch per category plus sub-categories in the "Clothing - Shoes" style, so you can remove all clothing or just the footwear.
+description=
+description=[hr][/hr]
+description=[h2]What It Removes[/h2]
+description=[b]Vehicles[/b] - remove every vanilla vehicle, or pick off police, emergency, work vans, trailers, traffic jams, junkyards, burnt wrecks and the roadside story cars separately. Regional profession swaps and the story-placed smashed cars are handled too, not just the spawn zones.
+description=
+description=[b]Loot[/b] - clothing (shoes, pants, shirts, outerwear, headwear, armour, jewellery, bags and more), food and drink, weapons, ammo, tools, medical, literature, containers, materials and the rest.
+description=
+description=[b]Modded content is never touched.[/b] Every removal is checked against a list of vanilla item and vehicle names baked from the game's own script files, so a car pack or clothing pack fills the gap you just made. There is an opt-in switch if you want modded items gone as well.
+description=
+description=Everything defaults to off, so installing the mod changes nothing until you turn something on.
+description=
+description=[hr][/hr]
+description=[h2]Adding this to a save already in progress[/h2]
+description=It works, but the two halves behave differently, so here is what to expect.
+description=
+description=[b]Loot works well straight away.[/b] Containers are only filled the first time you open them, so every container you have never opened - anywhere on the map, however long ago that area was generated - will roll without the things you removed. So will all future loot respawns. Containers you have already opened keep what is in them.
+description=
+description=[b]Vehicles are the awkward one.[/b] The game only places cars in chunks that are brand new and have never been visited, so an established save keeps its old cars for good and you would only see the change out in unexplored territory. If you want the cars you have already found gone as well, turn on [i]Also remove vanilla vehicles already in the world[/i] on the General page. It deletes them as you come across them - including ones you have repaired, fuelled or been using as storage - so it is off by default. A car with someone sitting in it is left alone.
+description=
+description=There is a matching [i]Also strip containers that have already been looted[/i] option. Be careful with that one: it cannot tell your base apart from anyone else's cupboard, so it will take matching items out of your own stashes. Your character's inventory and worn bags are never touched. Also off by default.
+description=
+description=[b]Turning the options on mid-save.[/b] On an existing save the mod's settings start at their defaults, and the vanilla main menu only lets you edit sandbox settings for a new game. To change them on a save already in progress you need the in-game sandbox window from the debug menu, which means launching with the -debug option. Changes there take effect the next time you load the save.
+description=
+description=[b]If you later disable the mod[/b], the game drops its settings from that save at the next autosave, so re-enabling it starts from the defaults again.
+description=
+description=Nothing here can damage a save. Items already in the world are never deleted unless you turn on one of the two purge options, and cars already parked reload normally whatever you remove.
+description=
+description=For the cleanest result, start a new save.
+description=
+description=Note: the clothes a zombie [i]wears[/i] are defined outside the loot tables and are not affected. What a zombie [i]carries[/i] is, and has its own toggle.
+description=
+description=[hr][/hr]
+description=[h1]Join Our Community![/h1]
+description=Have questions, suggestions, or need support? Join the official Discord server to stay updated on future releases and connect with other players!
+description=👉[url=https://discord.gg/heXQBtYUZb]Click here to join the Discord server[/url]
+description=[url=https://ko-fi.com/estralexe][img]https://i.imgur.com/S6apsIQ.gif[/img][/url]
+description=[url=https://www.twitch.tv/estralexe][img]https://i.imgur.com/FabN9Nh.gif[/img][/url]
+description=[hr][/hr]
+description=[h2]More From Estral[/h2]
+description=Check out my other mods while you’re at it:
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3791631305][img]https://images.steamusercontent.com/ugc/10550109030485225665/A79EED3FC204D4945A5842ACFCD964749B4F39EE/[/img][/url]
+description=[b]Pinoy Pantry[/b]
+description=Sarap ng Pinas in Knox Country
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3794717412][img]https://images.steamusercontent.com/ugc/10017484433944652614/60E3AF0B951E328D2880E7363BF820701BB54E2F/[/img][/url]
+description=[b]Quest System Framework[/b]
+description=Add quests to your multiplayer servers
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3795596462][img]https://images.steamusercontent.com/ugc/17894628963991674168/9F2F1791EF6C7891106FABB38FE7D35F7BECF314/[/img][/url]
+description=[b]Player Leaderboard System[/b]
+description=Have your players fight for first place, or keep track of your best lives in solo
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3746632343][img]https://images.steamusercontent.com/ugc/15813353898320562803/21D8A18963A880E6C1ED8AD9122946EFC6AC5A7B/[/img][/url]
+description=[b]Bundle Up! - A Packing Mod[/b]
+description=To organize all of your excessive stuff
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3800241753][img]https://images.steamusercontent.com/ugc/16485154806146051588/96977B7CB045B7166D5FCBB970FC886F2A322EE5/[/img][/url]
+description=[b]Dead Court Deck[/b]
+description=For your [strike]scalper[/strike] collectable needs!
+description=
+description=[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809376465][img]https://images.steamusercontent.com/ugc/14562058275516331001/A6E0C864A8C7DFCDAA20888EA3F10CACEE49586B/[/img][/url]
+description=[b]LAPLACE//DAEMON[/b]
+description=Every blade you forge rolls a rarity, and a fortune
+description=
+description=[hr][/hr]
+tags=Build 42;Balance;Items;Vehicles
+visibility=public
