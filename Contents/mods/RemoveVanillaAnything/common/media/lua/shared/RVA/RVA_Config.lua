@@ -1,6 +1,6 @@
 -- GENERATED FILE -- do not edit by hand.
--- Produced by tools/generate_vanilla_data.py from the vanilla Build 42 script files.
--- Edit tools/categories.py and re-run the generator instead.
+-- Produced by estral-tools/remove-vanilla-anything/generate_vanilla_data.py from the vanilla Build 42 script files.
+-- Edit estral-tools/remove-vanilla-anything/categories.py and re-run the generator instead.
 
 RVA = RVA or {}
 

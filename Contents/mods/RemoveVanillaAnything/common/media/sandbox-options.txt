@@ -1,6 +1,6 @@
 VERSION = 1,
 
-/* Remove Vanilla Anything -- GENERATED, see tools/generate_vanilla_data.py */
+/* Remove Vanilla Anything -- GENERATED, see estral-tools/remove-vanilla-anything/generate_vanilla_data.py */
 
 /* ---- Remove Vanilla: General ---- */
 
