@@ -1,6 +1,8 @@
 version=1
 id=3799346338
 title=Remove Vanilla Anything
+description=[img]https://i.imgur.com/lja52Fs.gif[/img]
+description=
 description=[h1]Remove Vanilla Anything[/h1]
 description=[b]Strip vanilla content out of the loot tables and vehicle spawns, category by category, straight from the sandbox settings.[/b]
 description=
