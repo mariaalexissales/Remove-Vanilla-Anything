@@ -17,14 +17,14 @@ jobs:
     name: generated files are current
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
       # the generator lives in estral-tools, which is private, so this needs the
       # read-only deploy key. it lands beside the mod rather than in it, and the
       # scripts read the mod out of the working directory, not their own location.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: mariaalexissales/estral-tools
           ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
@@ -46,11 +46,11 @@ jobs:
     name: mod files are valid
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: mariaalexissales/estral-tools
           ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
