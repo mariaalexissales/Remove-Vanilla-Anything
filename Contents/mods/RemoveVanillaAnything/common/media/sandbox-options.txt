@@ -1,0 +1,416 @@
+VERSION = 1,
+
+/* Remove Vanilla Anything -- GENERATED, see tools/generate_vanilla_data.py */
+
+/* ---- Remove Vanilla: General ---- */
+
+option RVA.ApplyToCorpseLoot
+{
+	type = boolean, default = false,
+	page = RVAPage_General, translation = RVA_ApplyToCorpseLoot,
+}
+
+option RVA.ApplyToModdedItems
+{
+	type = boolean, default = false,
+	page = RVAPage_General, translation = RVA_ApplyToModdedItems,
+}
+
+option RVA.LogRemovals
+{
+	type = boolean, default = false,
+	page = RVAPage_General, translation = RVA_LogRemovals,
+}
+
+option RVA.PurgeExistingVehicles
+{
+	type = boolean, default = false,
+	page = RVAPage_General, translation = RVA_PurgeExistingVehicles,
+}
+
+option RVA.PurgeExistingLoot
+{
+	type = boolean, default = false,
+	page = RVAPage_General, translation = RVA_PurgeExistingLoot,
+}
+
+/* ---- Remove Vanilla: Vehicles ---- */
+
+option RVA.Vehicles
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles,
+}
+
+option RVA.Vehicles_Everyday
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_Everyday,
+}
+
+option RVA.Vehicles_SportsLuxury
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_SportsLuxury,
+}
+
+option RVA.Vehicles_PolicePrison
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_PolicePrison,
+}
+
+option RVA.Vehicles_Emergency
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_Emergency,
+}
+
+option RVA.Vehicles_WorkDelivery
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_WorkDelivery,
+}
+
+option RVA.Vehicles_Trailers
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_Trailers,
+}
+
+option RVA.Vehicles_BurntCrashed
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_BurntCrashed,
+}
+
+option RVA.Vehicles_TrafficJams
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_TrafficJams,
+}
+
+option RVA.Vehicles_Junkyard
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_Junkyard,
+}
+
+option RVA.Vehicles_Story
+{
+	type = boolean, default = false,
+	page = RVAPage_Vehicles, translation = RVA_Vehicles_Story,
+}
+
+/* ---- Remove Vanilla: Clothing ---- */
+
+option RVA.Clothing
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing,
+}
+
+option RVA.Clothing_Shoes
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Shoes,
+}
+
+option RVA.Clothing_Pants
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Pants,
+}
+
+option RVA.Clothing_Shirts
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Shirts,
+}
+
+option RVA.Clothing_Outerwear
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Outerwear,
+}
+
+option RVA.Clothing_FullBody
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_FullBody,
+}
+
+option RVA.Clothing_Headwear
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Headwear,
+}
+
+option RVA.Clothing_Gloves
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Gloves,
+}
+
+option RVA.Clothing_Underwear
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Underwear,
+}
+
+option RVA.Clothing_Armor
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Armor,
+}
+
+option RVA.Clothing_Jewelry
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Jewelry,
+}
+
+option RVA.Clothing_Bags
+{
+	type = boolean, default = false,
+	page = RVAPage_Clothing, translation = RVA_Clothing_Bags,
+}
+
+/* ---- Remove Vanilla: Food & Drink ---- */
+
+option RVA.Food
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food,
+}
+
+option RVA.Food_Perishable
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_Perishable,
+}
+
+option RVA.Food_NonPerishable
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_NonPerishable,
+}
+
+option RVA.Food_Drinks
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_Drinks,
+}
+
+option RVA.Food_Alcohol
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_Alcohol,
+}
+
+option RVA.Food_Cookware
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_Cookware,
+}
+
+option RVA.Food_Seeds
+{
+	type = boolean, default = false,
+	page = RVAPage_FoodDrink, translation = RVA_Food_Seeds,
+}
+
+/* ---- Remove Vanilla: Weapons ---- */
+
+option RVA.Weapons
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons,
+}
+
+option RVA.Weapons_Firearms
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Firearms,
+}
+
+option RVA.Weapons_Melee
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Melee,
+}
+
+option RVA.Weapons_Improvised
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Improvised,
+}
+
+option RVA.Weapons_Ammo
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Ammo,
+}
+
+option RVA.Weapons_Parts
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Parts,
+}
+
+option RVA.Weapons_Explosives
+{
+	type = boolean, default = false,
+	page = RVAPage_Weapons, translation = RVA_Weapons_Explosives,
+}
+
+/* ---- Remove Vanilla: Tools & Gear ---- */
+
+option RVA.Tools
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools,
+}
+
+option RVA.Tools_VehicleMaintenance
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_VehicleMaintenance,
+}
+
+option RVA.Tools_Camping
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Camping,
+}
+
+option RVA.Tools_Fishing
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Fishing,
+}
+
+option RVA.Tools_Trapping
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Trapping,
+}
+
+option RVA.Tools_Gardening
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Gardening,
+}
+
+option RVA.Tools_LightSources
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_LightSources,
+}
+
+option RVA.Tools_Electronics
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Electronics,
+}
+
+option RVA.Tools_Communications
+{
+	type = boolean, default = false,
+	page = RVAPage_ToolsGear, translation = RVA_Tools_Communications,
+}
+
+/* ---- Remove Vanilla: Medical & Literature ---- */
+
+option RVA.Medical
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Medical,
+}
+
+option RVA.Medical_Pills
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Medical_Pills,
+}
+
+option RVA.Medical_Bandages
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Medical_Bandages,
+}
+
+option RVA.Literature
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Literature,
+}
+
+option RVA.Literature_SkillBooks
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Literature_SkillBooks,
+}
+
+option RVA.Literature_Magazines
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Literature_Magazines,
+}
+
+option RVA.Literature_Maps
+{
+	type = boolean, default = false,
+	page = RVAPage_MedicalLit, translation = RVA_Literature_Maps,
+}
+
+/* ---- Remove Vanilla: Everything Else ---- */
+
+option RVA.Containers
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_Containers,
+}
+
+option RVA.JunkMementos
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_JunkMementos,
+}
+
+option RVA.CraftingMaterials
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_CraftingMaterials,
+}
+
+option RVA.FurnitureMoveables
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_FurnitureMoveables,
+}
+
+option RVA.AnimalParts
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_AnimalParts,
+}
+
+option RVA.Instruments
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_Instruments,
+}
+
+option RVA.SportsEquipment
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_SportsEquipment,
+}
+
+option RVA.HouseholdItems
+{
+	type = boolean, default = false,
+	page = RVAPage_Misc, translation = RVA_HouseholdItems,
+}
+
