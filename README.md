@@ -1,10 +1,15 @@
 # Remove Vanilla Anything
 
+[![checks](https://github.com/mariaalexissales/Remove-Vanilla-Anything/actions/workflows/check.yml/badge.svg)](https://github.com/mariaalexissales/Remove-Vanilla-Anything/actions/workflows/check.yml)
+[![Steam Workshop](https://img.shields.io/badge/Steam-Workshop-1b2838?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=3799346338)
+
 A Project Zomboid **Build 42** mod that strips vanilla content out of the loot tables and
 vehicle spawn zones, category by category, from the sandbox settings — so a car pack, gun
 pack or clothing pack has room to actually show up in the world.
 
 Everything defaults to **off**. Installing the mod changes nothing until you turn a toggle on.
+
+**[Get it on the Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3799346338)**
 
 ## What it removes
 
@@ -118,15 +123,11 @@ Contents/mods/RemoveVanillaAnything/
   42/            mod.info, poster, icon
   common/media/  sandbox-options.txt, translations, lua
                  lua/server/RVA/  RVA_Loot.lua, RVA_Retro.lua, RVA_Vehicles.lua
+                 lua/shared/RVA/  RVA_Config.lua, RVA_VanillaItems.lua, RVA_VanillaVehicles.lua
+.github/         the CI workflows below
 ```
 
-The tooling lives in [estral-tools](https://github.com/mariaalexissales/estral-tools),
-cloned next to this folder. `categories.py` is the single source of truth,
-`generate_vanilla_data.py` emits every generated file, and `test_mod.py` runs the mod's
-Lua against the real vanilla tables.
-
-`categories.py` is the only file to hand-edit when adding a category. These five are
-generated from it and must never be edited directly:
+Five of those files are **generated** and carry a do-not-edit banner:
 
 - `common/media/sandbox-options.txt`
 - `common/media/lua/shared/Translate/EN/Sandbox.json`
@@ -134,34 +135,89 @@ generated from it and must never be edited directly:
 - `common/media/lua/shared/RVA/RVA_VanillaItems.lua`
 - `common/media/lua/shared/RVA/RVA_VanillaVehicles.lua`
 
-## Regenerating and testing
+They come from a single hand-edited table, `categories.py`: add a category there, regenerate, and the
+sandbox option, its translation, the runtime matcher and the baked vanilla lists all follow. The three
+`RVA_*` Lua files and the two sandbox files are never edited directly.
 
-After a Project Zomboid update, or after editing `categories.py`:
+## Tooling
+
+The scripts live in a separate private repo, `estral-tools`, which every one of my mods shares. It is
+cloned next to this folder and each script reads the mod out of the working directory:
+
+| Script | What it does | Needs the game |
+|---|---|---|
+| `generate_vanilla_data.py` | Reads the game's own item and vehicle scripts and emits all five generated files | yes |
+| `generate_vanilla_data.py --check` | Rebuilds the three files that come from `categories.py` alone and fails if any differ from disk | no |
+| `test_mod.py` | Loads the real `Distributions.lua`, `ProceduralDistributions.lua`, `VehicleDistributions.lua`, `VehicleZoneDefinition.lua` and `ProfessionVehicles.lua` into a Lua VM behind a stub of the PZ API, fires the same events the game fires, and asserts on what came out | yes |
+| `check_lua.py` | Every Lua file parses | no |
+| `check_line_endings.py` | Nothing that ships has CRLF, and no file mixes the two | no |
+
+After a Project Zomboid update, or after editing `categories.py`, from this folder:
 
 ```bash
 py ../estral-tools/remove-vanilla-anything/generate_vanilla_data.py
-```
-
-```bash
 py ../estral-tools/remove-vanilla-anything/test_mod.py
 ```
 
-The test loads the game's real `Distributions.lua`, `ProceduralDistributions.lua`,
-`VehicleDistributions.lua`, `VehicleZoneDefinition.lua` and `ProfessionVehicles.lua` into a Lua VM
-behind a stub of the PZ API, fires the same events the game fires, and asserts on what came out.
-It needs `lupa`:
+`test_mod.py` needs `lupa` (`py -m pip install lupa`). Both take the game install as an optional
+argument and default to `F:\SteamLibrary\steamapps\common\ProjectZomboid`.
 
-```bash
-py -m pip install lupa
+## How the CI works
+
+Every push to `main` and every pull request runs [`check.yml`](.github/workflows/check.yml), which has
+two parallel jobs, and [`pr-title.yml`](.github/workflows/pr-title.yml) on PRs.
+
+```mermaid
+flowchart LR
+    A[push to main / PR] --> B[checkout this repo]
+    A --> C[checkout estral-tools<br/>read-only deploy key]
+    B --> D
+    C --> D
+    subgraph D [two parallel jobs]
+        direction TB
+        E["generated files are current<br/>generate_vanilla_data.py --check"]
+        F["mod files are valid<br/>check_lua.py + check_line_endings.py"]
+    end
+    D --> G{all green?}
+    G -->|yes| H[mergeable]
+    G -->|no| I[names the stale or broken file]
 ```
 
-Both scripts take an optional path to the game install; they default to
-`F:\SteamLibrary\steamapps\common\ProjectZomboid`.
+**generated files are current.** Rebuilds `sandbox-options.txt`, `Sandbox.json` and `RVA_Config.lua`
+from `categories.py` and compares them byte for byte with what is committed. It fails when someone
+edited a generated file by hand, or changed `categories.py` and forgot to regenerate. The output names
+the stale file.
 
-## Before publishing
+**mod files are valid.** `check_lua.py` parses every Lua file, because the game only reports a syntax
+error once it loads the file, and then skips the whole file. `check_line_endings.py` fails on CRLF
+anywhere under `Contents/` or in `workshop.txt`: Project Zomboid checksums mod files on a multiplayer
+join, and a CRLF copy can fail that check against a Linux server.
 
-`poster.png`, `icon.png` and `preview.png` are still the placeholders from the map mod template.
-Replace them, and fill in `id=` in `workshop.txt` after the first upload.
+**pr title.** The title must start with `fix:`, `feat:`, `chore:`, `refactor:` or `docs:`. The title
+reaches the script through an environment variable, never expanded into the shell line, so a crafted
+title can't run as shell.
+
+Dependabot keeps the pinned GitHub Actions current, weekly.
+
+### How CI reaches a private repo
+
+The scripts are in `estral-tools`, which is private, so the workflow checks it out into `./estral-tools`
+using a **read-only deploy key** held in this repo's `ESTRAL_TOOLS_KEY` secret. Each mod's CI has its own
+key (this one is `remove-vanilla-anything ci`), so any of them can be revoked without breaking the others.
+Workflows run with `permissions: contents: read`, and `persist-credentials: false` keeps the token and key
+out of the checkout's git config.
+
+Pull requests from forks don't receive repository secrets, so the checks can't fetch the tooling for them
+and will fail at the checkout step. That is a GitHub restriction, not a problem with the change. Open an
+issue, or push a branch if you have access.
+
+### What CI does not run
+
+`test_mod.py`, the one that exercises the actual loot and vehicle logic, is **not** in CI. It loads the
+game's own distribution files, which belong to Project Zomboid and can't be put on a runner. The same goes
+for regenerating the two baked vanilla lists. Both run locally against a real install, before pushing, so a
+green CI means the mod's files are well-formed and in sync with `categories.py`, not that the removal logic
+was re-tested.
 
 ## More from Estral
 
