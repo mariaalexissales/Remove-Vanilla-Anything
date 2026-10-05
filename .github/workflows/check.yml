@@ -1,0 +1,72 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generated-files:
+    name: generated files are current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # the generator lives in estral-tools, which is private, so this needs the
+      # read-only deploy key. it lands beside the mod rather than in it, and the
+      # scripts read the mod out of the working directory, not their own location.
+      - uses: actions/checkout@v4
+        with:
+          repository: mariaalexissales/estral-tools
+          ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
+          path: estral-tools
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # --check needs no game install: it rebuilds the three files that come from
+      # categories.py alone and exits 1 naming any that were edited by hand or
+      # left behind by a categories.py change. the two vanilla lists need the
+      # game's own scripts, which can't be on a runner, so they are not checked.
+      - name: sandbox options, names and config match categories.py
+        run: python estral-tools/remove-vanilla-anything/generate_vanilla_data.py --check
+
+  mod-files:
+    name: mod files are valid
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/checkout@v4
+        with:
+          repository: mariaalexissales/estral-tools
+          ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
+          path: estral-tools
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # a lua syntax error only shows up once the game loads the file, and then
+      # the whole file is skipped.
+      - name: lua files parse
+        run: |
+          pip install --quiet luaparser==4.2.0
+          python estral-tools/remove-vanilla-anything/check_lua.py
+
+      - name: nothing that ships is crlf
+        run: python estral-tools/remove-vanilla-anything/check_line_endings.py
