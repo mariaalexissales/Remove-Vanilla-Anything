@@ -70,3 +70,8 @@ jobs:
 
       - name: nothing that ships is crlf
         run: python estral-tools/remove-vanilla-anything/check_line_endings.py
+
+      # steam refuses an upload whose description reaches 8,000 bytes, and the
+      # game's id lines count.
+      - name: workshop page fits steam's limit
+        run: python estral-tools/workshop/check_length.py
