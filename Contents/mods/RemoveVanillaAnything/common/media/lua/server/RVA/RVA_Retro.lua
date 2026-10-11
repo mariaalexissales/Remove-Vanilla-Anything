@@ -85,10 +85,9 @@ end
 local purgedChunks = nil
 local itemsRemoved = 0
 
+-- IsoChunk exposes no coordinate getters to lua; a chunk is 8 squares wide.
 local function chunkKey(square)
-	local chunk = square:getChunk()
-	if not chunk then return nil end
-	return chunk:getWorldX() .. "," .. chunk:getWorldY()
+	return math.floor(square:getX() / 8) .. "," .. math.floor(square:getY() / 8)
 end
 
 local function purgeContainer(container, remove)
