@@ -85,9 +85,18 @@ end
 local purgedChunks = nil
 local itemsRemoved = 0
 
--- IsoChunk exposes no coordinate getters to lua; a chunk is 8 squares wide.
+-- The chunk whose squares are arriving right now. The engine hands a chunk over one
+-- square at a time and then fires LoadChunk, so a chunk is only written down as done
+-- once it has moved on to the next. Marking it at its first square, as this once did,
+-- skipped every other square in it.
+local streaming = nil
+
+-- IsoChunk exposes no coordinate getters to lua; a chunk is 8 squares wide. A number
+-- rather than a string, because this is built once for every square that streams in.
+local CHUNK_STRIDE = 1000000
+
 local function chunkKey(square)
-	return math.floor(square:getX() / 8) .. "," .. math.floor(square:getY() / 8)
+	return math.floor(square:getX() / 8) * CHUNK_STRIDE + math.floor(square:getY() / 8)
 end
 
 local function purgeContainer(container, remove)
@@ -121,7 +130,13 @@ function RVA.onLoadGridsquare(square)
 	if not square then return end
 
 	local key = chunkKey(square)
-	if not key or purgedChunks[key] then return end
+	if purgedChunks[key] then return end
+
+	-- The first square of a different chunk: the one before it has been seen whole.
+	if key ~= streaming then
+		if streaming then purgedChunks[streaming] = true end
+		streaming = key
+	end
 
 	local objects = square:getObjects()
 	if not objects then return end
@@ -153,17 +168,13 @@ function RVA.onLoadGridsquare(square)
 	end
 end
 
---- Marks the square's chunk done. Kept separate from the purge so that a chunk is
---- recorded even when it held nothing to remove.
-function RVA.markChunkPurged(square)
-	if not purgedChunks or not square then return end
-	local key = chunkKey(square)
-	if key then purgedChunks[key] = true end
-end
-
-local function onLoadGridsquare(square)
-	RVA.onLoadGridsquare(square)
-	RVA.markChunkPurged(square)
+--- LoadChunk fires once, after the last square of a chunk. Without it the most recent
+--- chunk would stay open until another began, and walking straight back into it would
+--- walk it again. A chunk is recorded whether or not it held anything to remove.
+function RVA.onLoadChunk()
+	if not purgedChunks or not streaming then return end
+	purgedChunks[streaming] = true
+	streaming = nil
 end
 
 -- ---------------------------------------------------------------------------
@@ -175,7 +186,8 @@ local function start()
 
 	if setting("PurgeExistingLoot") then
 		purgedChunks = {}
-		Events.LoadGridsquare.Add(onLoadGridsquare)
+		Events.LoadGridsquare.Add(RVA.onLoadGridsquare)
+		Events.LoadChunk.Add(RVA.onLoadChunk)
 	end
 	if setting("PurgeExistingVehicles") then
 		-- Deliberately no immediate pass here. Files in lua/server load
