@@ -197,6 +197,9 @@ end
 local blockedOnSpawn = nil
 
 local function onSpawnVehicleStart(vehicle)
+	-- A multiplayer client fires this for every car the server sends it. Removing
+	-- one there leaves it on the server as an invisible car that still collides.
+	if isClient() then return end
 	if not blockedOnSpawn or not vehicle then return end
 	local script = bareScript(vehicle:getScriptName())
 	if not script or not blockedOnSpawn[script] then return end

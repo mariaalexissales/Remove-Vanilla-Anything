@@ -39,6 +39,12 @@ description=
 description=Note: the clothes a zombie [i]wears[/i] are defined outside the loot tables and are not affected. What a zombie [i]carries[/i] is, and has its own toggle.
 description=
 description=[hr][/hr]
+description=[h2]Multiplayer and Steam co-op[/h2]
+description=When you host, your game starts a separate server, and that server only uses its own settings. In Host - Manage Settings, add this mod on the [b]Mods[/b] tab and turn its options on in that server's [b]Sandbox[/b] tab. Options set on the single-player sandbox screen do not carry over.
+description=
+description=To check, look in [i]Zomboid/coop-console.txt[/i] for a line starting [i][RemoveVanillaAnything][/i]. It says how many categories the server sees switched on.
+description=
+description=[hr][/hr]
 description=[h1]Join Our Community![/h1]
 description=Have questions, suggestions, or need support? Join the official Discord server to stay updated on future releases and connect with other players!
 description=👉[url=https://discord.gg/heXQBtYUZb]Click here to join the Discord server[/url]

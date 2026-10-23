@@ -181,6 +181,10 @@ end
 local started = false
 
 local function start()
+	-- Multiplayer clients load lua/server too, the co-op host's own game included.
+	-- Removing things there only changes that player's copy of the world, so the
+	-- server is left to do it.
+	if isClient() then return end
 	if started then return end
 	started = true
 

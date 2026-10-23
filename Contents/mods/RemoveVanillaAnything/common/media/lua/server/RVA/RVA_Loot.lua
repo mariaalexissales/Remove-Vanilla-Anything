@@ -281,12 +281,43 @@ end
 -- rather than a boolean so a fresh Lua state -- which GameLoadingState creates on
 -- every game entry via LuaManager.LoadDirBase -- is always processed again.
 local appliedTo = nil
+local announcedTo = nil
+
+--- One line on every start, whatever LogRemovals says, so a console log shows at a
+--- glance whether the mod loaded and saw any settings. In co-op those come from the
+--- host's server settings, not the single-player sandbox screen, and with every
+--- option off by default a mix-up there otherwise leaves no trace at all.
+local function announce(settings)
+	if announcedTo == SuburbsDistributions then return end
+	announcedTo = SuburbsDistributions
+
+	local items = 0
+	for _ in pairs(settings.enabled) do items = items + 1 end
+	local vars = SandboxVars and SandboxVars[RVA.MODULE]
+	local master = vars and vars.Vehicles == true
+	local vehicles = 0
+	if vars then
+		for _, id in ipairs(RVA.vehicleCategoryIds) do
+			if vars[id] == true then vehicles = vehicles + 1 end
+		end
+	end
+
+	if items == 0 and not master and vehicles == 0 then
+		print("[RemoveVanillaAnything] loaded, but every category is switched off"
+			.. (vars and "" or " (no RVA sandbox settings found)"))
+	else
+		print("[RemoveVanillaAnything] active: " .. items .. " item categories, vehicles: "
+			.. (master and "all vanilla" or (vehicles .. " categories")))
+	end
+end
 
 function RVA.stripLoot()
 	if type(SuburbsDistributions) ~= "table" then return end
 	if appliedTo == SuburbsDistributions then return end
 
 	local settings = RVA.settings()
+	-- Clients only mirror the server; their line would just repeat its settings.
+	if not isClient() then announce(settings) end
 	if not anyEnabled(settings.enabled) then return end
 
 	local remove, counts, total = RVA.buildRemovalSet(settings)
