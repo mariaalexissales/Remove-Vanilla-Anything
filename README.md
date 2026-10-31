@@ -116,6 +116,26 @@ Two rough edges worth knowing:
 
 A new save is still the cleanest way to use it.
 
+## Multiplayer and Steam co-op
+
+A co-op host's game starts a separate server process (`CoopSlave`), then joins it as an ordinary
+client. The server reads its settings from `Zomboid/Server/<name>_SandboxVars.lua` in
+`GameServer.doMinimumInit`, before `IsoWorld.init()`, and never writes `map_sand.bin`. So the mod has
+to be on that server's Mods list, and its options set on that server's Sandbox tab (Host → Manage
+Settings). The single-player sandbox screen does not carry over. Every option defaults to off, so
+missing either step makes the mod silently do nothing. To make that visible, `RVA_Loot.lua` always
+prints one `[RemoveVanillaAnything]` line at startup, whatever *Log removals* is set to, saying how
+many categories it sees switched on.
+
+Clients load `lua/server` too (`GameLoadingState` calls `LoadDirBase("server")`). Every vanilla
+check stays on the server, so on a client:
+
+- `OnSpawnVehicleStart` fires for every car the server sends (`VehicleFullUpdatePacket` →
+  `addToWorld` → `createPhysics`). Removing a car there would only remove that player's copy, so
+  the per-spawn check returns early when `isClient()`.
+- Both retroactive purges are skipped. `container:Remove()` and `permanentlyRemove()` on a client
+  change nothing on the server.
+
 ## Repository layout
 
 ```
